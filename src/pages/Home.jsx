@@ -37,6 +37,15 @@ function Home() {
       localStorage.setItem("expenses", JSON.stringify(expenses));
     }, [expenses]);
 
+    const totalExpenses = expenses.reduce(
+      (total, expense) => total + Number(expense.amount),
+      0
+    );
+
+    const totalTransactions = expenses.length;
+
+    const thisMonthExpenses = totalExpenses;
+
   return (
     <>
       <Navbar />
@@ -45,17 +54,17 @@ function Home() {
         <div className="grid md:grid-cols-3 gap-6 mt-6">
           <SummaryCard
             title="Total Expenses"
-            value="Ksh 0"
+            value={`Ksh ${totalExpenses}`}
           />
 
           <SummaryCard
             title="Transactions"
-            value="0"
+            value={totalTransactions}
           />
 
           <SummaryCard
             title="This Month"
-            value="Ksh 0"
+            value={`Ksh ${thisMonthExpenses}`}
           />
           <ExpenseForm
             addExpense={addExpense}
